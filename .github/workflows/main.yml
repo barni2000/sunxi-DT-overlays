@@ -33,7 +33,19 @@ jobs:
       - name: Compile device trees
         run: |
           for file in $GITHUB_WORKSPACE/*/*.dts
+          mkdir build
           do
-            echo $file
-            dtc -@ -q -I dts -O dtb -o $file.dtbo $file
+            output=${file%.dts}.dtbo
+            echo $file $output.dtbo
+            dtc -@ -q -I dts -O dtb -o $output $file
+            cp $output build
           done
+          
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.1
+        with:
+          # Artifact name
+          name: dtbos
+          path: build
+
+     
