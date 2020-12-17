@@ -34,5 +34,6 @@ jobs:
         run: |
           for file in $GITHUB_WORKSPACE/*/*.dts
           do
+            echo $file
             dtc -@ -q -I dts -O dtb -o $file.dtbo $file
           done
