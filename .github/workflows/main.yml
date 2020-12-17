@@ -32,8 +32,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Compile device trees
         run: |
+          mkdir $GITHUB_WORKSPACE/build
           for file in $GITHUB_WORKSPACE/*/*.dts
-          mkdir build
           do
             output=${file%.dts}.dtbo
             echo $file $output.dtbo
