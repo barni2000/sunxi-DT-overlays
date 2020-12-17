@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ master, actions ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, actions ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,9 +30,9 @@ jobs:
         run: sudo apt -y update && sudo apt -y install device-tree-compiler
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Compile device trees
         run: |
-          for file in $GITHUB_WORKSPACE/*
+          for file in $GITHUB_WORKSPACE/*/*.dts
           do
-            echo dtc -@ -q -I dts -O dtb -o $file.dtbo $file
+            dtc -@ -q -I dts -O dtb -o $file.dtbo $file
           done
