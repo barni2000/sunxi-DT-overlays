@@ -3,15 +3,12 @@
 
 / {
 	compatible = "allwinner,sun8i-h3";
+};
 
-	fragment@0 {
-		target = <&codec>;
-		__overlay__ {
-			allwinner,audio-routing =
-				"Line Out", "LINEOUT",
-				"MIC1", "Mic",
-				"Mic",  "MBIAS";
-			status = "okay";
-		};
-	};
+&codec {
+	allwinner,audio-routing =
+		"Line Out", "LINEOUT",
+		"MIC1", "Mic",
+		"Mic",  "MBIAS";
+		status = "okay";
 };
